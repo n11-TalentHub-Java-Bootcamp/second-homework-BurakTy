@@ -1,8 +1,10 @@
 package com.buraktuysuz.secondhomework.controller;
 
+import com.buraktuysuz.secondhomework.entity.User;
 import com.buraktuysuz.secondhomework.entityService.UserEntityService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/comments/")
@@ -14,21 +16,27 @@ public class CommentController {
         this.userEntityService = userEntityService;
     }
 
-//    @GetMapping("/")
-//    public List<Category> findAllCategory(){
-//        return userEntityService.findAll();
-//    }
+    @GetMapping("")
+    public List<User> findAllCategory(){
+        return userEntityService.findAll();
+    }
+
+    @GetMapping("{username}")
+    public User findByUsername(@PathVariable String username){
+        var user =userEntityService.findByUsername(username);;
+        return  user;
+    }
+
+    @GetMapping("{phone}")
+    public User findByPhone(@PathVariable String phone){
+        var user =userEntityService.findByPhone(phone);;
+        return  user;
+    }
+
+//    @PutMapping("{id}")
+//    public User saveCategory(@RequestBody User user,@PathVariable Long id){
+//        return userEntityService.update(User,id);
 //
-//    @GetMapping("/{id}")
-//    public Category findCategoryById(@PathVariable Long id){
-//        return categoryEntitySevice.findById(id);
-//    }
-//
-//    @PostMapping("/")
-//    public CategoryDto saveCategory(@RequestBody CategoryDto categoryDto){
-//        Category category=  CategoryConverter.INSTANCE.convertCategoryDtoToCategory(categoryDto);
-//        category =categoryEntitySevice.save(category);
-//        return CategoryConverter.INSTANCE.convertCategoryToCategoryDto(category);
 //    }
 //
 //    @PutMapping("/")

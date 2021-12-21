@@ -1,16 +1,12 @@
 package com.buraktuysuz.secondhomework.entityService;
 
-import com.buraktuysuz.secondhomework.dao.UserDao;
-import com.buraktuysuz.secondhomework.dto.ProductCommentDto;
+import com.buraktuysuz.secondhomework.dao.ProductCommentDao;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductCommentEntityService {
 
-    private ProductCommentDto userDao;
-    public ProductCommentEntityService(UserDao userDao) { this.userDao=userDao; }
+    private ProductCommentDao productCommentDao;
+    public ProductCommentEntityService(ProductCommentDao productCommentDao) { this.productCommentDao=productCommentDao; }
 
-//    public List<UserCommentDto> findUserComment(Long userId){
-//       return userDao.findUserCommentDto(userId);
-//    }
 }
