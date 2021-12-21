@@ -1,14 +1,17 @@
 package com.buraktuysuz.secondhomework.controller;
 
+import com.buraktuysuz.secondhomework.dto.UserDto;
 import com.buraktuysuz.secondhomework.entity.User;
 import com.buraktuysuz.secondhomework.entityService.UserEntityService;
 import com.buraktuysuz.secondhomework.exception.UsernamePhoneNotMatchException;
+
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users/")
+@RequestMapping("/api/users")
 public class UserController {
 
     private UserEntityService userEntityService;
@@ -22,26 +25,32 @@ public class UserController {
         return userEntityService.findAll();
     }
 
-    @GetMapping("{username}")
+    @GetMapping("/username/{username}")
     public User findByUsername(@PathVariable String username){
         var user =userEntityService.findByUsername(username);;
         return  user;
     }
 
-    @GetMapping("{phone}")
+    @GetMapping("/phone/{phone}")
     public User findByPhone(@PathVariable String phone){
         var user =userEntityService.findByPhone(phone);;
         return  user;
     }
 
 
-    @PostMapping("")
-    public User saveCategory(@RequestBody User user){
-        user =userEntityService.save(user);
-        return user;
+//    @PostMapping("/")
+//    public User saveUser(@RequestBody User user){
+//        user =userEntityService.save(user);
+//        return user;
+//    }
+
+    @PostMapping("/")
+    public User saveCategory(@RequestBody UserDto userDto){
+        var us=new User();
+        return us;
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("/")
     public User deleteProductById(@RequestBody String username,@RequestBody String phone) {
 
         User user = userEntityService.findByUsername(username);
