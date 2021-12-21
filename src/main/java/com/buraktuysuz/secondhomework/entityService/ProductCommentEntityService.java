@@ -3,7 +3,6 @@ package com.buraktuysuz.secondhomework.entityService;
 import com.buraktuysuz.secondhomework.dao.ProductCommentDao;
 import com.buraktuysuz.secondhomework.dto.ProductCommentDto;
 import com.buraktuysuz.secondhomework.dto.UserCommentDto;
-import com.buraktuysuz.secondhomework.entity.Product;
 import com.buraktuysuz.secondhomework.entity.ProductComment;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +34,8 @@ public class ProductCommentEntityService {
 
         return productCommentList;
     }
-    public List<ProductCommentDto> findCommentUserById(Long id){
+
+    public List<ProductCommentDto> findCommentProdById(Long id){
         List<ProductCommentDto> productCommentDtoList = productCommentDao.findCommentProdById(id);
 
         return productCommentDtoList;
