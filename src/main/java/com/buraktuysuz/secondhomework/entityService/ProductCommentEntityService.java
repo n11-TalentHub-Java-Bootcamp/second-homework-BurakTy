@@ -1,6 +1,8 @@
 package com.buraktuysuz.secondhomework.entityService;
 
 import com.buraktuysuz.secondhomework.dao.ProductCommentDao;
+import com.buraktuysuz.secondhomework.dto.ProductCommentDto;
+import com.buraktuysuz.secondhomework.dto.UserCommentDto;
 import com.buraktuysuz.secondhomework.entity.Product;
 import com.buraktuysuz.secondhomework.entity.ProductComment;
 import org.springframework.stereotype.Service;
@@ -28,9 +30,23 @@ public class ProductCommentEntityService {
         return comment;
     }
 
+    public List<UserCommentDto> findCommentByUserId(Long id){
+        List<UserCommentDto> productCommentList = productCommentDao.findCommentByUserId(id);
+
+        return productCommentList;
+    }
+    public List<ProductCommentDto> findCommentUserById(Long id){
+        List<ProductCommentDto> productCommentDtoList = productCommentDao.findCommentProdById(id);
+
+        return productCommentDtoList;
+    }
+
     public ProductComment save(ProductComment comment){
         comment = productCommentDao.save(comment);
 
         return comment;
+    }
+    public void deleteById(Long id){
+       productCommentDao.deleteById(id);
     }
 }

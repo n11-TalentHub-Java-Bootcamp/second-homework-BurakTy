@@ -4,6 +4,7 @@ import com.buraktuysuz.secondhomework.converter.ProductCommentConverter;
 import com.buraktuysuz.secondhomework.dto.NewProductCommentDto;
 import com.buraktuysuz.secondhomework.dto.ProductCommentDto;
 import com.buraktuysuz.secondhomework.dto.UserCommentDto;
+import com.buraktuysuz.secondhomework.entity.Product;
 import com.buraktuysuz.secondhomework.entity.ProductComment;
 import com.buraktuysuz.secondhomework.entity.User;
 import com.buraktuysuz.secondhomework.entityService.ProductCommentEntityService;
@@ -22,43 +23,48 @@ public class CommentController {
     private ProductEntityService productEntityService;
     private ProductCommentEntityService productCommentEntityService;
 
-    public CommentController(UserEntityService userEntityService,ProductEntityService productEntityService,ProductCommentEntityService productCommentEntityService) {
+    public CommentController(UserEntityService userEntityService, ProductEntityService productEntityService, ProductCommentEntityService productCommentEntityService) {
         this.userEntityService = userEntityService;
         this.productEntityService = productEntityService;
         this.productCommentEntityService = productCommentEntityService;
     }
 
     @GetMapping("/")
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userEntityService.findAll();
     }
 
-//    @PostMapping("/users/{id}")
-//    public List<UserCommentDto> findByUsername(@PathVariable Long id){
+    @PostMapping("/users/{id}")
+    public List<UserCommentDto> findByUsername(@PathVariable Long id){
 
-//        List<UserCommentDto>  userCommentDtos = userEntityService.findCommentByUsername(username);
-//        if (userCommentDtos == null) {
-//            User user = userEntityService.findByUsername(username);
-//            throw new NotFoundException( "kullanıcı henüz bir yorum yazmamıştır");
-//        }
-//        return  userCommentDtos;
-//    }
+        List<UserCommentDto>  userCommentDtos = ProductCommentEntityService.findCommentByUserId(id);
+        if (userCommentDtos == null) {
+            User user = userEntityService.findById(id);
+            throw new NotFoundException( "kullanıcı henüz bir yorum yazmamıştır");
+        }
+        return  userCommentDtos;
+    }
 
-//    @GetMapping("/products/{id}")
-//    public List<ProductCommentDto> findByPhone(@PathVariable Long id){
-//
-//        List<ProductCommentDto> productCommentDtoList = userEntityService.findCommentById(id);
-//        if (productCommentDtoList == null) {
-//            var product =productEntityService.findById(id);
-//            throw new NotFoundException( product.getName() + "ürüne henüz bir yorum yazılmamıştır");
-//        }
-//        return  productCommentDtoList;
-//    }
+    @GetMapping("/products/{id}")
+    public List<ProductCommentDto> findByPhone(@PathVariable Long id){
+
+        List<ProductCommentDto> productCommentDtoList = ProductCommentEntityService.findCommentProdById(id);
+        if (productCommentDtoList == null) {
+            var product =productEntityService.findById(id);
+            throw new NotFoundException( product.getName() + "ürüne henüz bir yorum yazılmamıştır");
+        }
+        return  productCommentDtoList;
+    }
 
     @PostMapping("/")
-    public ProductComment saveProductComment(@RequestBody NewProductCommentDto newProductCommentDto){
-            ProductComment comment = ProductCommentConverter.INSTANCE.convertNewProductCommentDtoToProductComment(newProductCommentDto);
-            comment = productCommentEntityService.save(comment);
-            return  comment;
+    public ProductComment saveProductComment(@RequestBody NewProductCommentDto newProductCommentDto) {
+        ProductComment productComment = ProductCommentConverter.INSTANCE.convertNewProductCommentDtoToProductComment(newProductCommentDto);
+        productComment = productCommentEntityService.save(productComment);
+        return productComment;
+    }
+
+    @DeleteMapping("/{id}")
+    public void saveProductComment(@PathVariable Long id) {
+         productCommentEntityService.deleteById(id);
     }
 }

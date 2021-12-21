@@ -38,16 +38,10 @@ public class UserController {
     }
 
 
-//    @PostMapping("/")
-//    public User saveUser(@RequestBody User user){
-//        user =userEntityService.save(user);
-//        return user;
-//    }
-
     @PostMapping("/")
-    public User saveCategory(@RequestBody UserDto userDto){
-        var us=new User();
-        return us;
+    public User saveUser(@RequestBody User user){
+        user =userEntityService.save(user);
+        return user;
     }
 
     @DeleteMapping("/")
@@ -61,10 +55,9 @@ public class UserController {
         return user;
     }
 
-//
-//    @PutMapping("/")
-//    public Category updateCategory(@RequestBody CategoryDto categoryDto){
-//        Category category=  CategoryConverter.INSTANCE.convertCategoryDtoToCategory(categoryDto);
-//        return categoryEntitySevice.save(category);
-//    }
+    @PutMapping("/")
+    public User updateUser(@RequestBody User user){
+        user =userEntityService.save(user);
+        return user;
+    }
 }
